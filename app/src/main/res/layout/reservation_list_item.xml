@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="2dp"
+    android:layout_marginTop="2dp"
+    app:cardCornerRadius="4dp"
+    app:cardElevation="4dp"
+    app:cardUseCompatPadding="true">
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <TextView
+            android:id="@+id/departmentTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="16dp"
+            android:maxWidth="140dp"
+            android:textAlignment="viewStart"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Computer Science Engineering" />
+
+        <TextView
+            android:id="@+id/occasionTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="0dp"
+            android:layout_marginTop="8dp"
+            android:textSize="12sp"
+            app:layout_constraintLeft_toLeftOf="@+id/departmentTV"
+            app:layout_constraintTop_toBottomOf="@+id/departmentTV"
+            tools:text="Placement Training" />
+
+        <TextView
+            android:id="@+id/timeTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="0dp"
+            android:layout_marginTop="16dp"
+            android:maxWidth="64dp"
+            android:minLines="2"
+            android:minWidth="72dp"
+            android:paddingRight="16dp"
+            android:textSize="12sp"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Sep 20 9:00 am" />
+
+        <TextView
+            android:id="@+id/endTimeTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:layout_marginTop="8dp"
+            android:maxWidth="64dp"
+            android:minLines="2"
+            android:minWidth="72dp"
+            android:paddingRight="16dp"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/timeTV"
+            app:layout_constraintVertical_bias="1.0"
+            tools:text="Sep 20 12:00 pm" />
+
+        <TextView
+            android:id="@+id/venueTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="0dp"
+            android:layout_marginTop="4dp"
+            android:maxWidth="140dp"
+            android:textSize="12sp"
+            app:layout_constraintLeft_toLeftOf="@+id/occasionTV"
+            app:layout_constraintTop_toBottomOf="@+id/occasionTV"
+            tools:text="TP Ganesan Auditorium" />
+
+        <FrameLayout
+            android:id="@+id/statusFL"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:layout_marginLeft="0dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/shape_rounded_rectangle_orange"
+            android:paddingBottom="1dp"
+            android:paddingLeft="4dp"
+            android:paddingRight="4dp"
+            android:paddingTop="1dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="@+id/venueTV"
+            app:layout_constraintTop_toBottomOf="@+id/venueTV">
+
+            <TextView
+                android:id="@+id/statusTV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="1dp"
+                android:text="PENDING"
+                android:textColor="@color/md_white_1000"
+                android:textStyle="bold" />
+        </FrameLayout>
+
+    </android.support.constraint.ConstraintLayout>
+
+</android.support.v7.widget.CardView>

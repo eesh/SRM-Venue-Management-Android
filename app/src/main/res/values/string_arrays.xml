@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="departments">
+        <item>Department of Software Engineering</item>
+        <item>Department of Computer Science Engineering</item>
+        <item>Department of Electronics Engineering</item>
+        <item>Department of Electrical Engineering</item>
+    </string-array>
+</resources>

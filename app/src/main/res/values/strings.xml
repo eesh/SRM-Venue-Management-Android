@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Venue Management</string>
+    <string-array name="venues">
+        <item>Mini Hall - 1</item>
+        <item>Mini Hall - 2</item>
+        <item>ESB Seminar Hall</item>
+        <item>TP Ganesan Auditorium</item>
+    </string-array>
+</resources>
