@@ -1,9 +1,12 @@
 package com.srmuniv.srmvenuemanagementtool.Repositories.User.local;
 
 import android.content.Context;
+import android.icu.util.Calendar;
 
 import com.srmuniv.srmvenuemanagementtool.Repositories.User.UserDataSource;
 import com.srmuniv.srmvenuemanagementtool.models.User;
+
+import java.util.Date;
 
 /**
  * Created by eesh on 10/14/17.
@@ -23,6 +26,30 @@ public class UserLocalRepository implements UserDataSource {
             instance = new UserLocalRepository(context);
         }
         return instance;
+    }
+
+    @Override
+    public void storeAuthToken(String token, long expiry) {
+        preferencesHelper.storeAuthToken(token, expiry);
+    }
+
+    @Override
+    public void storeUser(User user, StoreUserCallback callback) {
+        preferencesHelper.storeUser(user);
+        callback.onUserStored();
+    }
+
+    @Override
+    public void getAuthToken(GetTokenCallback callback) {
+        String token = preferencesHelper.getAuthToken();
+        long expiry = preferencesHelper.getTokenExpiry();
+        if(token.length() == 0) {
+            callback.onDataNotAvailable();
+        } else if (new Date().getTime() > expiry) {
+            callback.onDataNotAvailable();
+        } else {
+            callback.onTokenLoaded(token, expiry);
+        }
     }
 
     @Override

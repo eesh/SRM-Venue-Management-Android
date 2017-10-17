@@ -22,10 +22,10 @@ public class VenueRepository implements VenueDataSource {
     private VenueRepository() {
     }
 
-    public static VenueRepository getInstance() {
+    public static VenueRepository getInstance(String authToken) {
         if(repository == null) {
             repository = new VenueRepository();
-            repository.venueNetworkRepository = VenueNetworkRepository.getInstance();
+            repository.venueNetworkRepository = VenueNetworkRepository.getInstance(authToken);
             repository.venueLocalRepository = VenueLocalRepository.getInstance();
         }
         return repository;
@@ -52,19 +52,6 @@ public class VenueRepository implements VenueDataSource {
     }
 
     @Override
-    public void getVenueById(@NonNull String id, @NonNull GetVenuesCallback callback) {
-        if(venueList != null) {
-            for(Venue venue:venueList) {
-                if(venue.getId().equals(id)) {
-                    callback.onVenueLoaded(venue);
-                    return;
-                }
-            }
-            callback.onDataNotAvailable();
-        }
-    }
-
-    @Override
     public void createVenue(Venue venue, @NonNull final CreateVenueCallback callback) {
         venueNetworkRepository.createVenue(venue, new CreateVenueCallback() {
             @Override
@@ -78,5 +65,31 @@ public class VenueRepository implements VenueDataSource {
                 callback.onCreateFail();
             }
         });
+    }
+
+    public void getVenueById(final String venueId, final GetVenuesCallback callback) {
+        if(venueList != null) {
+            for (Venue venue : venueList) {
+                if (venue.getId() == venueId) {
+                    callback.onVenueLoaded(venue);
+                } else callback.onDataNotAvailable();
+            }
+        } else {
+            getVenues(new LoadVenuesCallback() {
+                @Override
+                public void onVenueLoaded(List<Venue> venueList) {
+                    for (Venue venue : venueList) {
+                        if (venue.getId() == venueId) {
+                            callback.onVenueLoaded(venue);
+                        } else callback.onDataNotAvailable();
+                    }
+                }
+
+                @Override
+                public void onDataNotAvailable() {
+                    callback.onDataNotAvailable();
+                }
+            });
+        }
     }
 }

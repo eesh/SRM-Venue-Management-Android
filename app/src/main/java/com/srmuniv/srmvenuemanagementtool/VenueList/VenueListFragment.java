@@ -23,11 +23,21 @@ import java.util.List;
  * Created by eesh on 9/28/17.
  */
 
-public class VenueListFragment extends Fragment {
+public class VenueListFragment extends Fragment implements VenueContract.View {
 
     FragmentVenuesListBinding binding;
     VenueItemClickListener venueItemClickListener;
     VenueListAdapter adapter;
+    VenueContract.Presenter presenter;
+
+
+    public VenueListFragment() {
+
+    }
+
+    public static VenueListFragment newInstance() {
+        return new VenueListFragment();
+    }
 
     @Nullable
     @Override
@@ -52,15 +62,35 @@ public class VenueListFragment extends Fragment {
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        presenter.start();
+    }
+
+    @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        List<Venue> venueList = new ArrayList<>();
-        venueList.add(new Venue(200, "Mini Hall - 1", "TP Ganesan Auditorium"));
-        venueList.add(new Venue(200, "Mini Hall - 2", "TP Ganesan Auditorium"));
-        venueList.add(new Venue(3000, "TP Ganesan Auditorium", "Beside Technology Park"));
-        venueList.add(new Venue(100, "ESB Seminar Hall", "Main Campus"));
-        adapter = new VenueListAdapter(venueList, venueItemClickListener);
-        binding.recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
-        binding.recyclerView.setAdapter(adapter);
+    }
+
+    @Override
+    public void setPresenter(VenueContract.Presenter presenter) {
+        this.presenter = presenter;
+    }
+
+    @Override
+    public void showVenues(List<Venue> venueList) {
+        if(adapter == null) {
+            adapter = new VenueListAdapter(venueList, venueItemClickListener);
+            binding.recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
+            binding.recyclerView.setAdapter(adapter);
+        } else {
+            adapter.replaceItems(venueList);
+            adapter.notifyDataSetChanged();
+        }
+    }
+
+    @Override
+    public void showMessage(String s) {
+        Toast.makeText(getActivity(), s, Toast.LENGTH_SHORT).show();
     }
 }

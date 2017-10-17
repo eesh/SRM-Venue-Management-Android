@@ -1,5 +1,6 @@
 package com.srmuniv.srmvenuemanagementtool.Repositories.User;
 
+import com.srmuniv.srmvenuemanagementtool.models.Token;
 import com.srmuniv.srmvenuemanagementtool.models.User;
 
 /**
@@ -25,6 +26,32 @@ public class UserRepository implements UserDataSource {
         return instance;
     }
 
+
+    @Override
+    public void storeAuthToken(String token, long expiry) {
+        localSource.storeAuthToken(token, expiry);
+    }
+
+    @Override
+    public void storeUser(User user, StoreUserCallback callback) {
+        localSource.storeUser(user, callback);
+    }
+
+
+    @Override
+    public void getAuthToken(final GetTokenCallback callback) {
+        localSource.getAuthToken(new GetTokenCallback() {
+            @Override
+            public void onTokenLoaded(String token, long expiry) {
+                callback.onTokenLoaded(token, expiry);
+            }
+
+            @Override
+            public void onDataNotAvailable() {
+                callback.onDataNotAvailable();
+            }
+        });
+    }
 
     @Override
     public void createUser(User user, final GetUserCallback callback) {
@@ -90,4 +117,5 @@ public class UserRepository implements UserDataSource {
     public void getUser(String userId, GetUserCallback callback) {
 
     }
+
 }

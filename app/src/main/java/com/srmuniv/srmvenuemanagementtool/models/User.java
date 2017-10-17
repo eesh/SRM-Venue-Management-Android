@@ -1,19 +1,26 @@
 package com.srmuniv.srmvenuemanagementtool.models;
 
+import com.google.gson.annotations.SerializedName;
+
 /**
  * Created by eesh on 10/14/17.
  */
 
 public class User {
 
+    @SerializedName("_id")
     String id;
 
+    @SerializedName("name")
     String name;
 
+    @SerializedName("email")
     String email;
 
+    @SerializedName("department")
     String department;
 
+    @SerializedName("type")
     String role;
 
     public String getId() {

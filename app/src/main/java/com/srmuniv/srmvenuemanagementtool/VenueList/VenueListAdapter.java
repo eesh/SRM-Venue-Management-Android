@@ -52,6 +52,10 @@ public class VenueListAdapter extends RecyclerView.Adapter<VenueListAdapter.Venu
         return venueList.get(position);
     }
 
+    public void replaceItems(List<Venue> venueList) {
+        this.venueList = venueList;
+    }
+
     class VenueViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         TextView capacityTV, nameTV, locationTV;

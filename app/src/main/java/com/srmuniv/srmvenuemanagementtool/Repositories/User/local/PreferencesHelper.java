@@ -38,4 +38,16 @@ public class PreferencesHelper {
         User user = new User(null, null, null, null);
         return user;
     }
+
+    public void storeAuthToken(String token, long expiry) {
+        preferences.edit().putString("authToken", token).putLong("token_expiry", expiry).apply();
+    }
+
+    public String getAuthToken() {
+        return preferences.getString("authToken", "");
+    }
+
+    public long getTokenExpiry() {
+        return preferences.getLong("token_expiry", 0);
+    }
 }

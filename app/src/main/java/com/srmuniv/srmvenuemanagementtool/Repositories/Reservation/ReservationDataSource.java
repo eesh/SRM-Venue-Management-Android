@@ -12,9 +12,9 @@ import java.util.List;
 
 public interface ReservationDataSource {
 
-    interface LoadReservationCallback {
+    interface LoadReservationsCallback {
 
-        void onReservationLoaded(List<Reservation> reservationList);
+        void onReservationsLoaded(List<Reservation> reservationList);
 
         void onDataNotAvailable();
     }
@@ -28,7 +28,7 @@ public interface ReservationDataSource {
 
     void createReservation(@NonNull  Reservation reservation, @NonNull GetReservationCallback callback);
 
-    void getReservations(@NonNull LoadReservationCallback callback);
+    void getReservations(@NonNull LoadReservationsCallback callback);
 
     void cancelReservation(@NonNull String reservationId, GetReservationCallback callback);
 

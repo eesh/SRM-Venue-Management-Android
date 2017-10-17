@@ -1,5 +1,7 @@
 package com.srmuniv.srmvenuemanagementtool.models;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
@@ -10,22 +12,32 @@ import java.util.Locale;
 
 public class Reservation {
 
-
+    @SerializedName("venueId")
     String venueId;
 
     String venue;
 
+    @SerializedName("occasion")
     String occasion;
 
+    @SerializedName("startTime")
     Date startTime;
     String parsedStartTime;
 
+
+    @SerializedName("endTime")
     Date endTime;
     String parsedEndTime;
 
+    @SerializedName("duration")
     long duration;
 
-    String by;
+    @SerializedName("user")
+    User user;
+
+    @SerializedName("confirmed")
+    boolean confirmed;
+
 
     public String getVenueId() {
         return venueId;
@@ -40,6 +52,10 @@ public class Reservation {
 
     public void setVenueId(String venueId) {
         this.venueId = venueId;
+    }
+
+    public void setVenue(String venue) {
+        this.venue = venue;
     }
 
     public String getOccasion() {
@@ -90,20 +106,24 @@ public class Reservation {
         this.duration = duration;
     }
 
-    public String getBy() {
-        return by;
+    public User getUser() {
+        return user;
     }
 
-    public void setBy(String by) {
-        this.by = by;
+    public boolean isConfirmed() {
+        return confirmed;
     }
 
-    public Reservation(String by, String occasion, Date startTime, Date endTime, long duration) {
+    public Reservation(String venueId, String venue, String occasion, Date startTime, String parsedStartTime, Date endTime, String parsedEndTime, long duration, User user, boolean confirmed) {
+        this.venueId = venueId;
+        this.venue = venue;
         this.occasion = occasion;
         this.startTime = startTime;
+        this.parsedStartTime = parsedStartTime;
         this.endTime = endTime;
+        this.parsedEndTime = parsedEndTime;
         this.duration = duration;
-        this.by = by;
-        this.venueId = "1337";
+        this.user = user;
+        this.confirmed = confirmed;
     }
 }

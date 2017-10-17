@@ -2,6 +2,7 @@ package com.srmuniv.srmvenuemanagementtool.Repositories.Reservation.network;
 
 import android.support.annotation.NonNull;
 
+import com.srmuniv.srmvenuemanagementtool.Network.ReservationClient;
 import com.srmuniv.srmvenuemanagementtool.Repositories.Reservation.ReservationDataSource;
 import com.srmuniv.srmvenuemanagementtool.models.Reservation;
 
@@ -20,13 +21,13 @@ public class ReservationNetworkRespository implements ReservationDataSource {
     private static ReservationNetworkRespository instance;
     private ReservationClient.ReservationAPI client;
 
-    private ReservationNetworkRespository() {
-        client = ReservationClient.getClient();
+    private ReservationNetworkRespository(String authToken) {
+        client = ReservationClient.getClient(authToken);
     }
 
-    public static ReservationNetworkRespository getInstance() {
+    public static ReservationNetworkRespository getInstance(String authToken) {
         if(instance == null) {
-            instance = new ReservationNetworkRespository();
+            instance = new ReservationNetworkRespository(authToken);
         }
         return instance;
     }
@@ -50,13 +51,13 @@ public class ReservationNetworkRespository implements ReservationDataSource {
     }
 
     @Override
-    public void getReservations(@NonNull final LoadReservationCallback callback) {
+    public void getReservations(@NonNull final LoadReservationsCallback callback) {
         Call<List<Reservation>> call = client.getAllReservations();
         call.enqueue(new Callback<List<Reservation>>() {
             @Override
             public void onResponse(Call<List<Reservation>> call, Response<List<Reservation>> response) {
                 if(response.isSuccessful()) {
-                    callback.onReservationLoaded(response.body());
+                    callback.onReservationsLoaded(response.body());
                 } else callback.onDataNotAvailable();
             }
 

@@ -43,11 +43,12 @@ public class ReservationRepository implements ReservationDataSource {
     }
 
     @Override
-    public void getReservations(@NonNull final LoadReservationCallback callback) {
-        reservationNetworkRespository.getReservations(new LoadReservationCallback() {
+    public void getReservations(@NonNull final LoadReservationsCallback callback) {
+        reservationNetworkRespository.getReservations(new LoadReservationsCallback() {
             @Override
-            public void onReservationLoaded(List<Reservation> reservationList) {
-                callback.onReservationLoaded(reservationList);
+            public void onReservationsLoaded(List<Reservation> reservationList) {
+
+                callback.onReservationsLoaded(reservationList);
             }
 
             @Override

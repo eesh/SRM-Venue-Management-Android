@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
+import android.widget.Toast;
 
 import com.srmuniv.srmvenuemanagementtool.databinding.ActivityMakeReservationBinding;
 
@@ -13,7 +15,7 @@ import com.srmuniv.srmvenuemanagementtool.databinding.ActivityMakeReservationBin
  * Created by eesh on 9/29/17.
  */
 
-public class CreateReservation extends AppCompatActivity {
+public class CreateReservation extends AppCompatActivity implements View.OnClickListener {
 
     ActivityMakeReservationBinding binding;
 
@@ -21,6 +23,7 @@ public class CreateReservation extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_make_reservation);
+        binding.makeReservationButton.setOnClickListener(this);
     }
 
     @Override
@@ -54,5 +57,11 @@ public class CreateReservation extends AppCompatActivity {
                 break;
             }
         }
+    }
+
+    @Override
+    public void onClick(View view) {
+        Toast.makeText(this, "Created reservation request", Toast.LENGTH_SHORT).show();
+        finish();
     }
 }

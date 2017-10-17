@@ -23,6 +23,11 @@ public class ReservationsListAdapter extends RecyclerView.Adapter<ReservationsLi
         this.reservationList = reservationList;
     }
 
+    public void setData(List<Reservation> reservations) {
+        this.reservationList = reservations;
+        notifyDataSetChanged();
+    }
+
     @Override
     public ReservationViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())

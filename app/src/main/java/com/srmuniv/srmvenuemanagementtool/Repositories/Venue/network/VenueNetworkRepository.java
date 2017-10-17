@@ -2,6 +2,7 @@ package com.srmuniv.srmvenuemanagementtool.Repositories.Venue.network;
 
 import android.support.annotation.NonNull;
 
+import com.srmuniv.srmvenuemanagementtool.Network.VenueClient;
 import com.srmuniv.srmvenuemanagementtool.Repositories.Venue.VenueDataSource;
 import com.srmuniv.srmvenuemanagementtool.models.Venue;
 
@@ -19,12 +20,12 @@ public class VenueNetworkRepository implements VenueDataSource {
 
     private VenueClient.VenueAPI client;
 
-    private VenueNetworkRepository() {
-        client = VenueClient.getClient();
+    private VenueNetworkRepository(String authToken) {
+        client = VenueClient.getClient(authToken);
     }
 
-    public static VenueNetworkRepository getInstance() {
-        return new VenueNetworkRepository();
+    public static VenueNetworkRepository getInstance(String authToken) {
+        return new VenueNetworkRepository(authToken);
     }
 
     @Override
