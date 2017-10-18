@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v13.app.FragmentPagerAdapter;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.srmuniv.srmvenuemanagementtool.R;
@@ -48,6 +49,7 @@ public class HomeActivity extends AppCompatActivity {
         }
 
         adapter = new PagerAdapter(getFragmentManager());
+        Log.e("AuthToken", authToken);
 
         VenueListFragment venueListFragment = VenueListFragment.newInstance();
         venuePresenter = new VenuePresenter(VenueRepository.getInstance(authToken), venueListFragment);
@@ -56,6 +58,7 @@ public class HomeActivity extends AppCompatActivity {
         ReservationListFragment reservationListFragment = ReservationListFragment.getInstance();
         reservationsListPresenter = new ReservationsListPresenter(
                 ReservationRepository.getInstance(ReservationNetworkRespository.getInstance(authToken)),
+                VenueRepository.getInstance(authToken),
                 reservationListFragment);
         adapter.addFragment(reservationListFragment);
 
