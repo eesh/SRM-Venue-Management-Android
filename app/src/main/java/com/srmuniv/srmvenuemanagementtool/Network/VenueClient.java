@@ -21,6 +21,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.Path;
 
 /**
  * Created by eesh on 9/29/17.
@@ -85,10 +86,10 @@ public class VenueClient {
         @GET("venues")
         Call<List<Venue>> getVenues();
 
-        @GET("venue")
-        Call<Venue> getVenueById(String id);
+        @GET("venues/{venueId}")
+        Call<Venue> getVenueById(@Path("venueId") String id);
 
-        @POST("venue")
+        @POST("venues")
         Call<Venue> createVenue(@Body Venue params);
     }
 }
