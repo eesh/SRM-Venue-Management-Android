@@ -31,6 +31,10 @@ public class VenueRepository implements VenueDataSource {
         return repository;
     }
 
+    public static VenueRepository getInstance() {
+        return repository;
+    }
+
     @Override
     public void getVenues(@NonNull final LoadVenuesCallback callback) {
         if(venueList != null) {
