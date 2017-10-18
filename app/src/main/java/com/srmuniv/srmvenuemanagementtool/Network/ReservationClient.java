@@ -40,17 +40,19 @@ public class ReservationClient {
 
         HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
         interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
-        OkHttpClient httpClient = new OkHttpClient.Builder().addInterceptor(interceptor)
+
+        OkHttpClient httpClient = new OkHttpClient.Builder()
+                .addInterceptor(interceptor)
                 .addInterceptor(new Interceptor() {
                     @Override
-                    public Response intercept(Chain chain) throws IOException {
-
+                    public Response intercept(Interceptor.Chain chain) throws IOException {
                         Request original = chain.request();
 
                         Request.Builder requestBuilder = original.newBuilder()
                                 .header("token", authToken);
 
-                        return chain.proceed(requestBuilder.build());
+                        Request request = requestBuilder.build();
+                        return chain.proceed(request);
                     }
                 }).build();
 
@@ -73,7 +75,7 @@ public class ReservationClient {
 
     public interface ReservationAPI {
 
-        @GET("reservations")
+        @GET("reservation/all")
         Call<List<Reservation>> getAllReservations();
 
         @POST("reservation")
