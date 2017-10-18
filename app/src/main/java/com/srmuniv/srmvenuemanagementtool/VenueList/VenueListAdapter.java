@@ -1,7 +1,9 @@
 package com.srmuniv.srmvenuemanagementtool.VenueList;
 
 import android.content.Intent;
+import android.support.v7.util.DiffUtil;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -54,6 +56,14 @@ public class VenueListAdapter extends RecyclerView.Adapter<VenueListAdapter.Venu
 
     public void replaceItems(List<Venue> venueList) {
         this.venueList = venueList;
+        notifyDataSetChanged();
+    }
+
+    public void updateItems(List<Venue> venueList) {
+        final VenueListDiffCallback diffCallback = new VenueListDiffCallback(this.venueList, venueList);
+        final DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(diffCallback);
+        this.venueList = venueList;
+        diffResult.dispatchUpdatesTo(this);
     }
 
     class VenueViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
