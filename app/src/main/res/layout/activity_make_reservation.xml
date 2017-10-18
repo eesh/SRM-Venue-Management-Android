@@ -11,7 +11,7 @@
 
 
         <TextView
-            android:id="@+id/occasionTV"
+            android:id="@+id/occasionStaticTV"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="0dp"
@@ -79,7 +79,7 @@
             app:layout_constraintTop_toBottomOf="@+id/titleTV" />
 
         <TextView
-            android:id="@+id/capacityTV"
+            android:id="@+id/capacityStaticTV"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="0dp"
@@ -87,11 +87,11 @@
             android:text="Capacity:"
             android:textColor="@color/md_white_1000"
             android:textSize="24sp"
-            app:layout_constraintLeft_toLeftOf="@+id/occasionTV"
-            app:layout_constraintTop_toBottomOf="@+id/occasionTV" />
+            app:layout_constraintLeft_toLeftOf="@+id/occasionStaticTV"
+            app:layout_constraintTop_toBottomOf="@+id/occasionStaticTV" />
 
         <android.support.v7.widget.AppCompatEditText
-            android:id="@+id/occasionET"
+            android:id="@+id/locationET"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginBottom="0dp"
@@ -104,9 +104,9 @@
             android:textColor="@color/md_white_1000"
             android:textCursorDrawable="@null"
             app:backgroundTint="@color/md_white_1000"
-            app:layout_constraintBottom_toBottomOf="@+id/occasionTV"
-            app:layout_constraintLeft_toRightOf="@+id/occasionTV"
-            app:layout_constraintTop_toTopOf="@+id/occasionTV" />
+            app:layout_constraintBottom_toBottomOf="@+id/occasionStaticTV"
+            app:layout_constraintLeft_toRightOf="@+id/occasionStaticTV"
+            app:layout_constraintTop_toTopOf="@+id/occasionStaticTV" />
 
         <android.support.v7.widget.AppCompatEditText
             android:id="@+id/capacityET"
@@ -123,15 +123,15 @@
             android:textColor="@color/md_white_1000"
             android:textCursorDrawable="@null"
             app:backgroundTint="@color/md_white_1000"
-            app:layout_constraintBottom_toBottomOf="@+id/capacityTV"
+            app:layout_constraintBottom_toBottomOf="@+id/capacityStaticTV"
             app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintLeft_toLeftOf="@+id/occasionET"
-            app:layout_constraintRight_toRightOf="@+id/occasionET"
-            app:layout_constraintTop_toTopOf="@+id/capacityTV"
+            app:layout_constraintLeft_toLeftOf="@+id/locationET"
+            app:layout_constraintRight_toRightOf="@+id/locationET"
+            app:layout_constraintTop_toTopOf="@+id/capacityStaticTV"
             app:layout_constraintVertical_bias="0.09" />
 
         <TextView
-            android:id="@+id/dateTV"
+            android:id="@+id/mapStaticTV"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="0dp"
@@ -139,8 +139,8 @@
             android:text="Date:"
             android:textColor="@color/md_white_1000"
             android:textSize="24sp"
-            app:layout_constraintLeft_toLeftOf="@+id/capacityTV"
-            app:layout_constraintTop_toBottomOf="@+id/capacityTV" />
+            app:layout_constraintLeft_toLeftOf="@+id/capacityStaticTV"
+            app:layout_constraintTop_toBottomOf="@+id/capacityStaticTV" />
 
         <android.support.v7.widget.AppCompatEditText
             android:id="@+id/dateET"
@@ -156,9 +156,9 @@
             android:textColor="@color/md_white_1000"
             android:textCursorDrawable="@null"
             app:backgroundTint="@color/md_white_1000"
-            app:layout_constraintBottom_toBottomOf="@+id/dateTV"
+            app:layout_constraintBottom_toBottomOf="@+id/mapStaticTV"
             app:layout_constraintRight_toRightOf="@+id/capacityET"
-            app:layout_constraintTop_toTopOf="@+id/dateTV" />
+            app:layout_constraintTop_toTopOf="@+id/mapStaticTV" />
 
         <TextView
             android:id="@+id/timeTV"
@@ -169,8 +169,8 @@
             android:text="Start time:"
             android:textColor="@color/md_white_1000"
             android:textSize="24sp"
-            app:layout_constraintLeft_toLeftOf="@+id/dateTV"
-            app:layout_constraintTop_toBottomOf="@+id/dateTV" />
+            app:layout_constraintLeft_toLeftOf="@+id/mapStaticTV"
+            app:layout_constraintTop_toBottomOf="@+id/mapStaticTV" />
 
         <android.support.v7.widget.AppCompatEditText
             android:id="@+id/timeET"
