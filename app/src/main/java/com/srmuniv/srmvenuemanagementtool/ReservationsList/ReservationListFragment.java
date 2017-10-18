@@ -62,6 +62,12 @@ public class ReservationListFragment extends Fragment implements ReservationList
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        presenter.start();
+    }
+
+    @Override
     public void setPresenter(ReservationListContract.Presenter presenter) {
         this.presenter = presenter;
     }
