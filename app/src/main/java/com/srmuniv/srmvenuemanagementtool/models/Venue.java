@@ -1,5 +1,7 @@
 package com.srmuniv.srmvenuemanagementtool.models;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.util.Calendar;
 import java.util.Date;
 
@@ -9,6 +11,7 @@ import java.util.Date;
 
 public class Venue {
 
+    @SerializedName("_id")
     String id;
 
     int capacity;
