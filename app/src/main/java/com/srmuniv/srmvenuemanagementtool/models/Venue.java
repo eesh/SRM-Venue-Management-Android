@@ -48,7 +48,6 @@ public class Venue {
         this.capacity = capacity;
         this.name = name;
         this.location = location;
-        this.id = ""+Calendar.getInstance().getTimeInMillis()/1000;
     }
 
     public String getId() {
