@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.srmuniv.srmvenuemanagementtool.CreateReservation;
+import com.srmuniv.srmvenuemanagementtool.CreateVenue.CreateVenueActivity;
 import com.srmuniv.srmvenuemanagementtool.R;
 import com.srmuniv.srmvenuemanagementtool.databinding.FragmentVenuesListBinding;
 import com.srmuniv.srmvenuemanagementtool.models.Venue;
@@ -23,7 +24,7 @@ import java.util.List;
  * Created by eesh on 9/28/17.
  */
 
-public class VenueListFragment extends Fragment implements VenueContract.View {
+public class VenueListFragment extends Fragment implements VenueContract.View, View.OnClickListener {
 
     FragmentVenuesListBinding binding;
     VenueItemClickListener venueItemClickListener;
@@ -58,6 +59,7 @@ public class VenueListFragment extends Fragment implements VenueContract.View {
                 Toast.makeText(getActivity(), venue.getName(), Toast.LENGTH_SHORT).show();
             }
         };
+        binding.addVenueFAB.setOnClickListener(this);
         return binding.getRoot();
     }
 
@@ -92,5 +94,21 @@ public class VenueListFragment extends Fragment implements VenueContract.View {
     @Override
     public void showMessage(String s) {
         Toast.makeText(getActivity(), s, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void showAddVenueScreen() {
+        Intent intent = new Intent(getActivity(), CreateVenueActivity.class);
+        startActivity(intent);
+    }
+
+    @Override
+    public void updateVenues(List<Venue> venueList) {
+        adapter.replaceItems(venueList);
+    }
+
+    @Override
+    public void onClick(View view) {
+        presenter.addVenueButtonClicked();
     }
 }

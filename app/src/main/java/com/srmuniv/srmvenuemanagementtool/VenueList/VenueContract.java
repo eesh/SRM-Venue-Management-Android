@@ -17,10 +17,16 @@ public interface VenueContract {
         void showVenues(List<Venue> venueList);
 
         void showMessage(String s);
+
+        void showAddVenueScreen();
+
+        void updateVenues(List<Venue> venueList);
     }
 
     interface Presenter extends BasePresenter {
 
         void loadVenues();
+
+        void addVenueButtonClicked();
     }
 }
