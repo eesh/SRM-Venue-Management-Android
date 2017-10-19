@@ -53,4 +53,9 @@ public class Venue {
     public String getId() {
         return id;
     }
+
+    @Override
+    public String toString() {
+        return getName() + ", " + getLocation();
+    }
 }
