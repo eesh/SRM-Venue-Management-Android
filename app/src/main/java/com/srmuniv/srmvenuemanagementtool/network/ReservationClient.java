@@ -34,6 +34,7 @@ public class ReservationClient {
         }
 
         Gson gson = new GsonBuilder()
+                .setDateFormat("yyyy-MM-dd'T'HH:mm:ss")
                 .registerTypeAdapter(Reservation.class, new CustomDeserializer<Reservation>("reservationDetails"))
                 .registerTypeAdapter(List.class, new CustomDeserializer<List<Reservation>>("reservations")).create();
 
