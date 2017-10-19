@@ -30,13 +30,16 @@ public class Reservation {
     String parsedEndTime;
 
     @SerializedName("duration")
-    long duration;
+    int duration;
 
     @SerializedName("user")
     User user;
 
     @SerializedName("confirmed")
     boolean confirmed;
+
+    @SerializedName("capacity")
+    int capacity;
 
 
     public String getVenueId() {
@@ -98,11 +101,11 @@ public class Reservation {
         this.endTime = endTime;
     }
 
-    public long getDuration() {
+    public int getDuration() {
         return duration;
     }
 
-    public void setDuration(long duration) {
+    public void setDuration(int duration) {
         this.duration = duration;
     }
 
@@ -114,7 +117,7 @@ public class Reservation {
         return confirmed;
     }
 
-    public Reservation(String venueId, String venue, String occasion, Date startTime, String parsedStartTime, Date endTime, String parsedEndTime, long duration, User user, boolean confirmed) {
+    public Reservation(String venueId, String venue, String occasion, Date startTime, String parsedStartTime, Date endTime, String parsedEndTime, int duration, User user, boolean confirmed) {
         this.venueId = venueId;
         this.venue = venue;
         this.occasion = occasion;
@@ -125,5 +128,22 @@ public class Reservation {
         this.duration = duration;
         this.user = user;
         this.confirmed = confirmed;
+    }
+
+    public Reservation(String venueId, String occasion, Date startTime, Date endTime, int capacity) {
+        this.venueId = venueId;
+        this.occasion = occasion;
+        this.startTime = startTime;
+        this.endTime = endTime;
+        this.capacity = capacity;
+    }
+
+    public Reservation(String venueId, String occasion, Date startTime, Date endTime, int capacity, int duration) {
+        this.venueId = venueId;
+        this.occasion = occasion;
+        this.startTime = startTime;
+        this.endTime = endTime;
+        this.capacity = capacity;
+        this.duration = duration;
     }
 }
