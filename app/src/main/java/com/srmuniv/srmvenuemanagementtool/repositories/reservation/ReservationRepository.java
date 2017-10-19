@@ -87,4 +87,8 @@ public class ReservationRepository implements ReservationDataSource {
             }
         });
     }
+
+    public static ReservationRepository getInstance() {
+        return instance;
+    }
 }
