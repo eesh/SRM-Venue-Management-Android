@@ -49,7 +49,7 @@ public class VenueListFragment extends Fragment implements VenueContract.View, V
             public void onReserveClicked(int position) {
                 Venue venue = adapter.getItem(position);
                 Intent intent = new Intent(getActivity(), CreateReservationActivity.class);
-                intent.putExtra("venueName", venue.getName());
+                intent.putExtra("venueId", venue.getId());
                 startActivity(intent);
             }
 
