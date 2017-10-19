@@ -26,11 +26,8 @@
             android:id="@+id/venueSpinner"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="0dp"
             android:layout_marginLeft="8dp"
             android:layout_marginRight="16dp"
-            android:layout_marginTop="0dp"
-            android:entries="@array/venues"
             app:backgroundTint="@color/md_white_1000"
             app:layout_constraintBottom_toBottomOf="@+id/venueStaticTV"
             app:layout_constraintLeft_toRightOf="@+id/venueStaticTV"
@@ -70,8 +67,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="16dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="20dp"
             android:text="Venue:"
             android:textColor="@color/md_white_1000"
             android:textSize="24sp"
@@ -91,14 +87,13 @@
             app:layout_constraintTop_toBottomOf="@+id/occasionStaticTV" />
 
         <android.support.v7.widget.AppCompatEditText
-            android:id="@+id/locationET"
+            android:id="@+id/occasionET"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="0dp"
             android:layout_marginLeft="16dp"
             android:layout_marginTop="8dp"
             android:ems="10"
-            android:inputType="textPersonName"
+            android:inputType="textCapSentences"
             android:paddingLeft="16dp"
             android:paddingRight="16dp"
             android:textColor="@color/md_white_1000"
@@ -125,8 +120,8 @@
             app:backgroundTint="@color/md_white_1000"
             app:layout_constraintBottom_toBottomOf="@+id/capacityStaticTV"
             app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintLeft_toLeftOf="@+id/locationET"
-            app:layout_constraintRight_toRightOf="@+id/locationET"
+            app:layout_constraintLeft_toLeftOf="@+id/occasionET"
+            app:layout_constraintRight_toRightOf="@+id/occasionET"
             app:layout_constraintTop_toTopOf="@+id/capacityStaticTV"
             app:layout_constraintVertical_bias="0.09" />
 
@@ -161,7 +156,7 @@
             app:layout_constraintTop_toTopOf="@+id/mapStaticTV" />
 
         <TextView
-            android:id="@+id/timeTV"
+            android:id="@+id/timeStaticTV"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="0dp"
@@ -173,7 +168,7 @@
             app:layout_constraintTop_toBottomOf="@+id/mapStaticTV" />
 
         <android.support.v7.widget.AppCompatEditText
-            android:id="@+id/timeET"
+            android:id="@+id/startTimeET"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginBottom="0dp"
@@ -187,32 +182,28 @@
             android:textColor="@color/md_white_1000"
             android:textCursorDrawable="@null"
             app:backgroundTint="@color/md_white_1000"
-            app:layout_constraintBottom_toBottomOf="@+id/timeTV"
+            app:layout_constraintBottom_toBottomOf="@+id/timeStaticTV"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintLeft_toLeftOf="@+id/dateET"
             app:layout_constraintRight_toRightOf="@+id/dateET"
-            app:layout_constraintTop_toTopOf="@+id/timeTV"
+            app:layout_constraintTop_toTopOf="@+id/timeStaticTV"
             app:layout_constraintVertical_bias="0.363" />
 
         <TextView
-            android:id="@+id/durationTV"
+            android:id="@+id/endTimeStaticTV"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="0dp"
             android:layout_marginTop="24dp"
-            android:text="Duration:"
+            android:text="End time:"
             android:textColor="@color/md_white_1000"
             android:textSize="24sp"
-            app:layout_constraintLeft_toLeftOf="@+id/timeTV"
-            app:layout_constraintTop_toBottomOf="@+id/timeTV" />
+            app:layout_constraintLeft_toLeftOf="@+id/timeStaticTV"
+            app:layout_constraintTop_toBottomOf="@+id/timeStaticTV" />
 
         <android.support.v7.widget.AppCompatEditText
-            android:id="@+id/durationET"
+            android:id="@+id/endTimeET"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="0dp"
-            android:layout_marginLeft="0dp"
-            android:layout_marginRight="0dp"
             android:layout_marginTop="8dp"
             android:ems="10"
             android:inputType="number"
@@ -221,9 +212,37 @@
             android:textColor="@color/md_white_1000"
             android:textCursorDrawable="@null"
             app:backgroundTint="@color/md_white_1000"
-            app:layout_constraintBottom_toBottomOf="@+id/durationTV"
-            app:layout_constraintLeft_toLeftOf="@+id/timeET"
-            app:layout_constraintRight_toRightOf="@+id/timeET"
-            app:layout_constraintTop_toTopOf="@+id/durationTV" />
+            app:layout_constraintBottom_toBottomOf="@+id/endTimeStaticTV"
+            app:layout_constraintLeft_toLeftOf="@+id/startTimeET"
+            app:layout_constraintRight_toRightOf="@+id/startTimeET"
+            app:layout_constraintTop_toTopOf="@+id/endTimeStaticTV" />
+
+        <TextView
+            android:id="@+id/durationStaticTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginTop="24dp"
+            android:text="Duration: "
+            android:textColor="@color/md_white_1000"
+            android:textSize="24sp"
+            app:layout_constraintBottom_toTopOf="@+id/makeReservationButton"
+            app:layout_constraintStart_toStartOf="@+id/endTimeStaticTV"
+            app:layout_constraintTop_toBottomOf="@+id/endTimeStaticTV"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <TextView
+            android:id="@+id/durationTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:textColor="@color/md_white_1000"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="@+id/durationStaticTV"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/endTimeET"
+            app:layout_constraintTop_toTopOf="@+id/durationStaticTV" />
     </android.support.constraint.ConstraintLayout>
 </layout>
