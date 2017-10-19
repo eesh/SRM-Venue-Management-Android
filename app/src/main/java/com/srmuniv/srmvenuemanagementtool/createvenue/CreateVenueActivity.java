@@ -32,7 +32,7 @@ public class CreateVenueActivity extends AppCompatActivity implements CreateVenu
             return;
         }
         binding.addVenueButton.setOnClickListener(this);
-        presenter = CreateVenuePresenter.getInstance(this, VenueRepository.getInstance());
+        presenter = new CreateVenuePresenter(this, VenueRepository.getInstance());
     }
 
     @Override

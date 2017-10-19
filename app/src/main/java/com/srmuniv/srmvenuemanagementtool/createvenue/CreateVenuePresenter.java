@@ -19,13 +19,6 @@ public class CreateVenuePresenter implements CreateVenueContract.Presenter {
         this.repository = repository;
     }
 
-    public static CreateVenuePresenter getInstance(CreateVenueContract.View view, VenueRepository repository) {
-        if(instance == null) {
-            instance = new CreateVenuePresenter(view, repository);
-        }
-        return instance;
-    }
-
     @Override
     public void start() {
 
