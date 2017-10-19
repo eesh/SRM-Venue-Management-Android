@@ -1,6 +1,7 @@
 package com.srmuniv.srmvenuemanagementtool.repositories.reservation.network;
 
 import android.support.annotation.NonNull;
+import android.util.Log;
 
 import com.srmuniv.srmvenuemanagementtool.network.ReservationClient;
 import com.srmuniv.srmvenuemanagementtool.repositories.reservation.ReservationDataSource;
@@ -45,6 +46,7 @@ public class ReservationNetworkRespository implements ReservationDataSource {
 
             @Override
             public void onFailure(Call<Reservation> call, Throwable t) {
+                Log.e("createReservation", t.getMessage());
                 callback.onDataNotAvailable();
             }
         });
