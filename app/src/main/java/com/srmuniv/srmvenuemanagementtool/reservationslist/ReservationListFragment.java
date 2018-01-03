@@ -1,6 +1,7 @@
 package com.srmuniv.srmvenuemanagementtool.reservationslist;
 
 import android.app.Fragment;
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -13,6 +14,7 @@ import android.widget.Toast;
 import com.srmuniv.srmvenuemanagementtool.R;
 import com.srmuniv.srmvenuemanagementtool.databinding.FragmentReservationsListBinding;
 import com.srmuniv.srmvenuemanagementtool.models.Reservation;
+import com.srmuniv.srmvenuemanagementtool.reservationdetails.ReservationDetailsActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +23,7 @@ import java.util.List;
  * Created by eesh on 9/29/17.
  */
 
-public class ReservationListFragment extends Fragment implements ReservationListContract.View {
+public class ReservationListFragment extends Fragment implements ReservationListContract.View, ReservationItemClickListener {
 
     FragmentReservationsListBinding binding;
     static ReservationListFragment instance;
@@ -41,7 +43,7 @@ public class ReservationListFragment extends Fragment implements ReservationList
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_reservations_list, container, false);
-        adapter = new ReservationsListAdapter(new ArrayList<Reservation>());
+        adapter = new ReservationsListAdapter(new ArrayList<Reservation>(), this);
         return binding.getRoot();
     }
 
@@ -84,5 +86,22 @@ public class ReservationListFragment extends Fragment implements ReservationList
     @Override
     public void showMessage(String message) {
         Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onClick(int position) {
+        Reservation reservation = adapter.getItem(position);
+        Intent intent = new Intent(getActivity(), ReservationDetailsActivity.class);
+        intent.putExtra("reservationId", reservation.getReservationId());
+        intent.putExtra("venueId", reservation.getVenueId());
+        intent.putExtra("occasion", reservation.getOccasion());
+        intent.putExtra("startTime", reservation.getStartTime().getTime());
+        intent.putExtra("endTime", reservation.getEndTime().getTime());
+        intent.putExtra("duration", reservation.getDuration());
+        intent.putExtra("capacity", reservation.getCapacity());
+        intent.putExtra("userId", reservation.getUser().getId());
+        intent.putExtra("userName", reservation.getUser().getName());
+        intent.putExtra("userDepartment", reservation.getUser().getDepartment());
+        startActivity(intent);
     }
 }
