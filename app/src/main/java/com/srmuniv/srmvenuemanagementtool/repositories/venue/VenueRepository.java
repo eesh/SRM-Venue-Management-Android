@@ -1,6 +1,7 @@
 package com.srmuniv.srmvenuemanagementtool.repositories.venue;
 
 import android.support.annotation.NonNull;
+import android.util.Log;
 
 import com.srmuniv.srmvenuemanagementtool.repositories.venue.local.VenueLocalRepository;
 import com.srmuniv.srmvenuemanagementtool.repositories.venue.network.VenueNetworkRepository;
@@ -72,21 +73,27 @@ public class VenueRepository implements VenueDataSource {
     }
 
     public void getVenueById(final String venueId, final GetVenuesCallback callback) {
+        Log.e(getClass().getSimpleName(), "List of venues:");
         if(venueList != null) {
             for (Venue venue : venueList) {
-                if (venue.getId() == venueId) {
+                Log.e(getClass().getSimpleName(), venue.getId());
+                if (venue.getId().equals(venueId)) {
                     callback.onVenueLoaded(venue);
-                } else callback.onDataNotAvailable();
+                    return;
+                }
             }
+            callback.onDataNotAvailable();
         } else {
             getVenues(new LoadVenuesCallback() {
                 @Override
                 public void onVenueLoaded(List<Venue> venueList) {
                     for (Venue venue : venueList) {
-                        if (venue.getId() == venueId) {
+                        if (venue.getId().equals(venueId)) {
                             callback.onVenueLoaded(venue);
-                        } else callback.onDataNotAvailable();
+                            return;
+                        }
                     }
+                    callback.onDataNotAvailable();
                 }
 
                 @Override
