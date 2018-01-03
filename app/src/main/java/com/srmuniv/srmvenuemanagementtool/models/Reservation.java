@@ -3,14 +3,19 @@ package com.srmuniv.srmvenuemanagementtool.models;
 import com.google.gson.annotations.SerializedName;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
+import java.util.TimeZone;
 
 /**
  * Created by eesh on 9/28/17.
  */
 
 public class Reservation {
+
+    @SerializedName("_id")
+    String reservationId;
 
     @SerializedName("venueId")
     String venueId;
@@ -36,7 +41,7 @@ public class Reservation {
     User user;
 
     @SerializedName("confirmed")
-    boolean confirmed;
+    int confirmed;
 
     @SerializedName("capacity")
     int capacity;
@@ -76,6 +81,7 @@ public class Reservation {
     public String getParsedStartTime() {
         if(parsedStartTime == null) {
             SimpleDateFormat format = new SimpleDateFormat("MMM dd hh:mmaa", Locale.getDefault());
+            format.setTimeZone(TimeZone.getTimeZone("UTC"));
             parsedStartTime = format.format(getStartTime());
         }
         return parsedStartTime;
@@ -92,6 +98,7 @@ public class Reservation {
     public String getParsedEndTime() {
         if(parsedEndTime == null) {
             SimpleDateFormat format = new SimpleDateFormat("MMM dd hh:mmaa", Locale.getDefault());
+            format.setTimeZone(TimeZone.getTimeZone("UTC"));
             parsedEndTime = format.format(getEndTime());
         }
         return parsedEndTime;
@@ -114,10 +121,18 @@ public class Reservation {
     }
 
     public boolean isConfirmed() {
-        return confirmed;
+        return confirmed == 1;
     }
 
-    public Reservation(String venueId, String venue, String occasion, Date startTime, String parsedStartTime, Date endTime, String parsedEndTime, int duration, User user, boolean confirmed) {
+    public boolean isPending() {
+        return confirmed == 0;
+    }
+
+    public boolean isRejected() {
+        return confirmed == 2;
+    }
+
+    public Reservation(String venueId, String venue, String occasion, Date startTime, String parsedStartTime, Date endTime, String parsedEndTime, int duration, User user, int confirmed) {
         this.venueId = venueId;
         this.venue = venue;
         this.occasion = occasion;
@@ -145,5 +160,39 @@ public class Reservation {
         this.endTime = endTime;
         this.capacity = capacity;
         this.duration = duration;
+    }
+
+    public Reservation(String venueId, String occasion, Date startTime, Date endTime, int capacity, int duration, User user) {
+        this.venueId = venueId;
+        this.occasion = occasion;
+        this.startTime = startTime;
+        this.endTime = endTime;
+        this.capacity = capacity;
+        this.duration = duration;
+        this.user = user;
+    }
+
+    public int getCapacity() {
+        return capacity;
+    }
+
+    public String getStartDate() {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(startTime);
+        String date = String.format(Locale.getDefault(), "%d %s, %d", calendar.get(Calendar.DAY_OF_MONTH),
+                calendar.getDisplayName(Calendar.MONTH,
+                        Calendar.SHORT,
+                        Locale.getDefault()),
+                calendar.get(Calendar.YEAR));
+
+        return date;
+    }
+
+    public void setReservationId(String reservationId) {
+        this.reservationId = reservationId;
+    }
+
+    public String getReservationId() {
+        return reservationId;
     }
 }
