@@ -1,5 +1,7 @@
 package com.srmuniv.srmvenuemanagementtool.repositories.user;
 
+import android.util.Log;
+
 import com.srmuniv.srmvenuemanagementtool.models.User;
 
 /**
@@ -25,31 +27,13 @@ public class UserRepository implements UserDataSource {
         return instance;
     }
 
-
-    @Override
-    public void storeAuthToken(String token, long expiry) {
-        localSource.storeAuthToken(token, expiry);
+    public static UserRepository getInstance() {
+        return instance;
     }
 
     @Override
     public void storeUser(User user, StoreUserCallback callback) {
         localSource.storeUser(user, callback);
-    }
-
-
-    @Override
-    public void getAuthToken(final GetTokenCallback callback) {
-        localSource.getAuthToken(new GetTokenCallback() {
-            @Override
-            public void onTokenLoaded(String token, long expiry) {
-                callback.onTokenLoaded(token, expiry);
-            }
-
-            @Override
-            public void onDataNotAvailable() {
-                callback.onDataNotAvailable();
-            }
-        });
     }
 
     @Override
@@ -90,15 +74,20 @@ public class UserRepository implements UserDataSource {
                 @Override
                 public void onUserLoaded(User user) {
                     instance.user = user;
+                    if(callback == null) {
+                        return;
+                    }
                     callback.onUserLoaded(user);
                 }
 
                 @Override
                 public void onDataNotAvailable() {
+                    Log.e(this.getClass().getSimpleName(), "User not found in local source");
                     networkSource.getUser(new GetUserCallback() {
                         @Override
                         public void onUserLoaded(User user) {
                             instance.user = user;
+                            localSource.storeUser(user, null);
                             callback.onUserLoaded(user);
                         }
 
@@ -109,7 +98,7 @@ public class UserRepository implements UserDataSource {
                     });
                 }
             });
-        }
+        } else callback.onUserLoaded(user);
     }
 
     @Override
@@ -117,4 +106,10 @@ public class UserRepository implements UserDataSource {
 
     }
 
+    public boolean isAdmin() {
+        if (user != null) {
+            if (user.getRole().equals("admin")) return true;
+        }
+        return false;
+    }
 }

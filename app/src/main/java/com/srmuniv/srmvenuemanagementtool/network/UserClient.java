@@ -5,7 +5,12 @@ import com.google.gson.GsonBuilder;
 import com.srmuniv.srmvenuemanagementtool.network.models.AuthRes;
 import com.srmuniv.srmvenuemanagementtool.models.User;
 
+import java.io.IOException;
+
+import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Call;
 import retrofit2.Retrofit;
@@ -21,38 +26,51 @@ import retrofit2.http.POST;
 public class UserClient {
 
     private static UserAPI client;
-    final static String API_BASE_URL = "http://eesh.me:6767/auth/";
+    final static String API_BASE_URL = "http://eesh.me:6767/user/";
 
-    public static UserAPI getClient() {
+    public static UserAPI getClient(final String authToken) {
         if(client != null) {
             return client;
         }
 
         Gson gson = new GsonBuilder()
-                .registerTypeAdapter(AuthRes.class, new CustomDeserializer<AuthRes>("tokenDetails"))
                 .registerTypeAdapter(User.class, new CustomDeserializer<User>("userDetails")).create();
 
         HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
         interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
-        OkHttpClient okHttpClient = new OkHttpClient.Builder().addInterceptor(interceptor).build();
+        OkHttpClient httpClient = new OkHttpClient.Builder()
+                .addInterceptor(interceptor)
+                .addInterceptor(new Interceptor() {
+                    @Override
+                    public Response intercept(Interceptor.Chain chain) throws IOException {
+                        Request original = chain.request();
 
-        Retrofit builder = new Retrofit.Builder().client(okHttpClient)
-                .addConverterFactory(GsonConverterFactory.create(gson))
-                .baseUrl(API_BASE_URL)
-                .build();
-        client = builder.create(UserAPI.class);
+                        Request.Builder requestBuilder = original.newBuilder()
+                                .header("token", authToken);
+
+                        Request request = requestBuilder.build();
+                        return chain.proceed(request);
+                    }
+                }).build();
+
+        Retrofit.Builder builder =
+                new Retrofit.Builder()
+                        .baseUrl(API_BASE_URL)
+                        .addConverterFactory(
+                                GsonConverterFactory.create(gson)
+                        );
+
+        Retrofit retrofit =
+                builder
+                        .client(
+                                httpClient
+                        )
+                        .build();
+        client = retrofit.create(UserAPI.class);
         return client;
     }
 
     public interface UserAPI {
-
-        @FormUrlEncoded
-        @POST("register")
-        Call<User> registerUser(@Field("name") String name, @Field("email") String email, @Field("password") String password, @Field("department") String department);
-
-        @FormUrlEncoded
-        @POST("login")
-        Call<AuthRes> loginUser(@Field("email") String email, @Field("password") String password);
 
         @POST("profile")
         Call<User> getProfile();

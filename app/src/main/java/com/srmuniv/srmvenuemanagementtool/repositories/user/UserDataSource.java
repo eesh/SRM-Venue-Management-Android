@@ -8,11 +8,9 @@ import com.srmuniv.srmvenuemanagementtool.models.User;
 
 public interface UserDataSource {
 
-    void storeAuthToken(String token, long expiry);
+
 
     void storeUser(User user, StoreUserCallback callback);
-
-    void getAuthToken(GetTokenCallback callback);
 
     interface StoreUserCallback {
 
@@ -24,13 +22,6 @@ public interface UserDataSource {
     interface GetUserCallback {
 
         void onUserLoaded(User user);
-
-        void onDataNotAvailable();
-    }
-
-    interface GetTokenCallback {
-
-        void onTokenLoaded(String token, long expiry);
 
         void onDataNotAvailable();
     }

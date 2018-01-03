@@ -1,6 +1,7 @@
 package com.srmuniv.srmvenuemanagementtool.repositories.user.local;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.srmuniv.srmvenuemanagementtool.repositories.user.UserDataSource;
 import com.srmuniv.srmvenuemanagementtool.models.User;
@@ -27,27 +28,12 @@ public class UserLocalRepository implements UserDataSource {
         return instance;
     }
 
-    @Override
-    public void storeAuthToken(String token, long expiry) {
-        preferencesHelper.storeAuthToken(token, expiry);
-    }
 
     @Override
     public void storeUser(User user, StoreUserCallback callback) {
         preferencesHelper.storeUser(user);
-        callback.onUserStored();
-    }
-
-    @Override
-    public void getAuthToken(GetTokenCallback callback) {
-        String token = preferencesHelper.getAuthToken();
-        long expiry = preferencesHelper.getTokenExpiry();
-        if(token.length() == 0) {
-            callback.onDataNotAvailable();
-        } else if (new Date().getTime() > expiry) {
-            callback.onDataNotAvailable();
-        } else {
-            callback.onTokenLoaded(token, expiry);
+        if(callback != null) {
+            callback.onUserStored();
         }
     }
 
@@ -67,6 +53,10 @@ public class UserLocalRepository implements UserDataSource {
     @Override
     public void getUser(GetUserCallback callback) {
         User user = preferencesHelper.getUser();
+        if (user == null) {
+            callback.onDataNotAvailable();
+            return;
+        }
         callback.onUserLoaded(user);
     }
 

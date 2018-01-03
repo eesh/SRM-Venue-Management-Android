@@ -12,8 +12,11 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.srmuniv.srmvenuemanagementtool.R;
+import com.srmuniv.srmvenuemanagementtool.models.User;
 import com.srmuniv.srmvenuemanagementtool.repositories.reservation.ReservationRepository;
 import com.srmuniv.srmvenuemanagementtool.repositories.reservation.network.ReservationNetworkRespository;
+import com.srmuniv.srmvenuemanagementtool.repositories.user.UserDataSource;
+import com.srmuniv.srmvenuemanagementtool.repositories.user.UserRepository;
 import com.srmuniv.srmvenuemanagementtool.repositories.venue.VenueRepository;
 import com.srmuniv.srmvenuemanagementtool.reservationslist.ReservationListFragment;
 import com.srmuniv.srmvenuemanagementtool.reservationslist.ReservationsListPresenter;
@@ -64,6 +67,23 @@ public class HomeActivity extends AppCompatActivity {
         binding.viewPager.setAdapter(adapter);
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.e(this.getClass().getSimpleName(), "Requesting user information on home activity");
+        UserRepository.getInstance().getUser(new UserDataSource.GetUserCallback() {
+            @Override
+            public void onUserLoaded(User user) {
+                Log.e(this.getClass().getSimpleName(), user.getRole());
+                Log.e(this.getClass().getSimpleName(), "User loaded on home activity");
+            }
+
+            @Override
+            public void onDataNotAvailable() {
+                Log.e(this.getClass().getSimpleName(), "Failed to load user on home activity");
+            }
+        });
+    }
 
     class PagerAdapter extends FragmentPagerAdapter {
 
