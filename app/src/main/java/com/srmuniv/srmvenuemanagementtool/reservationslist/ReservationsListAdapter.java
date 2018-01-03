@@ -9,6 +9,7 @@ import android.widget.TextView;
 import com.srmuniv.srmvenuemanagementtool.R;
 import com.srmuniv.srmvenuemanagementtool.models.Reservation;
 
+import java.lang.ref.WeakReference;
 import java.util.List;
 
 /**
@@ -18,9 +19,11 @@ import java.util.List;
 public class ReservationsListAdapter extends RecyclerView.Adapter<ReservationsListAdapter.ReservationViewHolder> {
 
     List<Reservation> reservationList;
+    ReservationItemClickListener clickListener;
 
-    public ReservationsListAdapter(List<Reservation> reservationList) {
+    public ReservationsListAdapter(List<Reservation> reservationList, ReservationItemClickListener listener) {
         this.reservationList = reservationList;
+        this.clickListener = listener;
     }
 
     public void setData(List<Reservation> reservations) {
@@ -28,11 +31,15 @@ public class ReservationsListAdapter extends RecyclerView.Adapter<ReservationsLi
         notifyDataSetChanged();
     }
 
+    public Reservation getItem(int position) {
+        return reservationList.get(position);
+    }
+
     @Override
     public ReservationViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.reservation_list_item, parent, false);
-        return new ReservationViewHolder(itemView);
+        return new ReservationViewHolder(itemView, clickListener);
     }
 
     @Override
@@ -51,18 +58,28 @@ public class ReservationsListAdapter extends RecyclerView.Adapter<ReservationsLi
         return reservationList.size();
     }
 
-    class ReservationViewHolder extends RecyclerView.ViewHolder {
+    class ReservationViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         TextView occasionTV, departmentTV, venueTV;
         TextView startTimeTV, endTimeTV, durationTV;
+        private WeakReference<ReservationItemClickListener> listenerWeakReference;
 
-        public ReservationViewHolder(View itemView) {
+        public ReservationViewHolder(View itemView, ReservationItemClickListener listener) {
             super(itemView);
             occasionTV = itemView.findViewById(R.id.occasionTV);
             departmentTV = itemView.findViewById(R.id.departmentTV);
             venueTV = itemView.findViewById(R.id.venueTV);
             startTimeTV = itemView.findViewById(R.id.timeTV);
             endTimeTV = itemView.findViewById(R.id.endTimeTV);
+            if (listener != null) {
+                listenerWeakReference = new WeakReference<>(listener);
+                itemView.setOnClickListener(this);
+            }
+        }
+
+        @Override
+        public void onClick(View view) {
+            listenerWeakReference.get().onClick(getAdapterPosition());
         }
     }
 }
