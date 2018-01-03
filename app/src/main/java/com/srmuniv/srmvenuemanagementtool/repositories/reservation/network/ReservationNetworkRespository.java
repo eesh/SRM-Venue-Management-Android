@@ -76,6 +76,7 @@ public class ReservationNetworkRespository implements ReservationDataSource {
         call.enqueue(new Callback<Reservation>() {
             @Override
             public void onResponse(Call<Reservation> call, Response<Reservation> response) {
+                Log.e(getClass().getSimpleName(), Boolean.toString(response.isSuccessful()));
                 if(response.isSuccessful()) {
                     callback.onReservationloaded(response.body());
                 } else callback.onDataNotAvailable();
@@ -83,6 +84,7 @@ public class ReservationNetworkRespository implements ReservationDataSource {
 
             @Override
             public void onFailure(Call<Reservation> call, Throwable t) {
+                Log.e(getClass().getSimpleName(), t.toString());
                 callback.onDataNotAvailable();
             }
         });
@@ -102,6 +104,47 @@ public class ReservationNetworkRespository implements ReservationDataSource {
             @Override
             public void onFailure(Call<Reservation> call, Throwable t) {
                 callback.onDataNotAvailable();
+            }
+        });
+    }
+
+    @Override
+    public void getReservationById(@NonNull String reservationId, GetReservationCallback callback) {
+
+    }
+
+    @Override
+    public void confirmReservation(final Reservation reservation, final GetActionConfirmationCallback callback) {
+        Call<Reservation> call = client.confirmReservation(reservation.getReservationId());
+        call.enqueue(new Callback<Reservation>() {
+            @Override
+            public void onResponse(Call<Reservation> call, Response<Reservation> response) {
+                if (response.isSuccessful()) {
+                    callback.onActionPerformed();;
+                } else callback.onActionFailed();
+            }
+
+            @Override
+            public void onFailure(Call<Reservation> call, Throwable t) {
+                callback.onActionFailed();
+            }
+        });
+    }
+
+    @Override
+    public void rejectReservation(Reservation reservation, final GetActionConfirmationCallback callback) {
+        Call<Reservation> call = client.rejectReservation(reservation.getReservationId());
+        call.enqueue(new Callback<Reservation>() {
+            @Override
+            public void onResponse(Call<Reservation> call, Response<Reservation> response) {
+                if (response.isSuccessful()) {
+                    callback.onActionPerformed();;
+                } else callback.onActionFailed();
+            }
+
+            @Override
+            public void onFailure(Call<Reservation> call, Throwable t) {
+                callback.onActionFailed();
             }
         });
     }

@@ -88,7 +88,22 @@ public class ReservationRepository implements ReservationDataSource {
         });
     }
 
+    @Override
+    public void getReservationById(@NonNull String reservationId, GetReservationCallback callback) {
+
+    }
+
     public static ReservationRepository getInstance() {
         return instance;
+    }
+
+    @Override
+    public void confirmReservation(Reservation reservation, GetActionConfirmationCallback callback) {
+        reservationNetworkRespository.confirmReservation(reservation, callback);
+    }
+
+    @Override
+    public void rejectReservation(Reservation reservation, GetActionConfirmationCallback callback) {
+        reservationNetworkRespository.rejectReservation(reservation, callback);
     }
 }
