@@ -26,6 +26,13 @@ public interface ReservationDataSource {
         void onDataNotAvailable();
     }
 
+    interface GetActionConfirmationCallback {
+
+        void onActionPerformed();
+
+        void onActionFailed();
+    }
+
     void createReservation(@NonNull  Reservation reservation, @NonNull GetReservationCallback callback);
 
     void getReservations(@NonNull LoadReservationsCallback callback);
@@ -33,4 +40,10 @@ public interface ReservationDataSource {
     void cancelReservation(@NonNull String reservationId, GetReservationCallback callback);
 
     void editReservation(@NonNull Reservation reservation, GetReservationCallback callback);
+
+    void getReservationById(@NonNull String reservationId, GetReservationCallback callback);
+
+    void confirmReservation(Reservation reservation, GetActionConfirmationCallback callback);
+
+    void rejectReservation(Reservation reservation, GetActionConfirmationCallback callback);
 }

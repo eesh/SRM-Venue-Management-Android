@@ -16,6 +16,8 @@ import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.Body;
+import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 
@@ -81,10 +83,19 @@ public class ReservationClient {
         @POST("reservation")
         Call<Reservation> createReservation(@Body Reservation reservation);
 
+        @FormUrlEncoded
         @POST("reservation/cancel")
-        Call<Reservation> cancelReservation(@Body String reservationId);
+        Call<Reservation> cancelReservation(@Field("reservationId") String reservationId);
 
         @POST("reservation/edit")
         Call<Reservation> editReservation(@Body Reservation reservation);
+
+        @FormUrlEncoded
+        @POST("reservation/confirm")
+        Call<Reservation> confirmReservation(@Field("reservationId") String reservationId);
+
+        @FormUrlEncoded
+        @POST("reservation/confirm")
+        Call<Reservation> rejectReservation(@Field("reservationId") String reservationId);
     }
 }
